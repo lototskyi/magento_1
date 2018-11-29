@@ -1,0 +1,19 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="lototskyi_contactmessages_messages_listing_data_source" xsi:type="string">
+                    Lototskyi\ContactMessages\Model\ResourceModel\Messages\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Lototskyi\ContactMessages\Model\ResourceModel\Messages\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">lototskyi_contact_messages</argument>
+            <argument name="resourceModel" xsi:type="string">Lototskyi\ContactMessages\Model\ResourceModel\Messages</argument>
+        </arguments>
+    </virtualType>
+</config>

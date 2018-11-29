@@ -8,6 +8,7 @@ return [
         'Magento_Cms' => 1,
         'Magento_Customer' => 1,
         'Magento_AdminNotification' => 1,
+        'Lototskyi_ContactMessages' => 1,
         'Magento_Indexer' => 1,
         'Magento_AdvancedPricingImportExport' => 1,
         'Magento_Config' => 1,
@@ -143,6 +144,7 @@ return [
         'Dotdigitalgroup_Email' => 1,
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistSampleData' => 1,
+        'My_HelloWorld' => 1,
         'Temando_Shipping' => 1,
         'Vertex_Tax' => 1
     ]

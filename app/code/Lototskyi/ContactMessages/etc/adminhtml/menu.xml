@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Lototskyi_ContactMessages::messages" title="Manage contact messages" module="Lototskyi_ContactMessages"
+             sortOrder="100"
+             action="lototskyi_contactmessages/messages" resource="Lototskyi_ContactMessages::messages"/>
+    </menu>
+</config>
