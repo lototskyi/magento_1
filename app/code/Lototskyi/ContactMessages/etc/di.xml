@@ -16,4 +16,5 @@
             <argument name="resourceModel" xsi:type="string">Lototskyi\ContactMessages\Model\ResourceModel\Messages</argument>
         </arguments>
     </virtualType>
+    <preference for="Magento\Contact\Controller\Index\Post" type="Lototskyi\ContactMessages\Controller\Frontend\Post" />
 </config>

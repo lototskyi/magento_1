@@ -80,6 +80,14 @@
                 </item>
             </argument>
         </column>
+        <column name="status" class="Lototskyi\ContactMessages\Ui\Component\Listing\Columns\MessageStatus">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string">Status</item>
+                </item>
+            </argument>
+        </column>
         <column name="name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

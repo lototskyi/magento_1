@@ -36,10 +36,9 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $items = $this->collection->getItems();
         $this->loadedData = array();
 
-        /** @var Messages $contact */
-        foreach ($items as $contact) {
-            // our fieldset is called "contact" or this table so that magento can find its datas:
-            $this->loadedData[$contact->getId()]['messages'] = $contact->getData();
+        /** @var Messages $message */
+        foreach ($items as $message) {
+            $this->loadedData[$message->getId()]['messages'] = $message->getData();
         }
 
         return $this->loadedData;
