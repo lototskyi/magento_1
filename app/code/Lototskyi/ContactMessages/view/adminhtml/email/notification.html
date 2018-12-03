@@ -1,5 +1,15 @@
-{{template config_path="design/email/header_template"}} <!-- header -->
-{{name}}
-{{email}}
-{{message}}
-{{template config_path="design/email/footer_template"}} <!-- footer -->
+<!--@subject Answer contact message  @-->
+<table>
+    <tr>
+        <td>{{var name|raw}}</td>
+    </tr>
+    <tr>
+        <td>{{var email|raw}}</td>
+    </tr>
+    <tr>
+        <td>{{var answer|raw}}</td>
+    </tr>
+</table>
+
+
+

@@ -116,7 +116,7 @@
                 </item>
             </argument>
         </column>
-        <column name="answered_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="answered_at" class="Lototskyi\ContactMessages\Ui\Component\Listing\Columns\MessageAnsweredAt">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>

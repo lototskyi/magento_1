@@ -19,20 +19,30 @@ class MessageStatus extends Column
     {
         if (isset($dataSource['data']['items'])) {
 
-            foreach ($dataSource['data']['items'] as &$item) {
+            $dataSource = $this->getStatuses($dataSource);
+        }
+        return $dataSource;
+    }
 
-                $status = $item['status'];
+    private function getStatuses($dataSource)
+    {
+        foreach ($dataSource['data']['items'] as &$item) {
 
-                if ($status) {
-                    $message = 'Closed';
-                } else {
-                    $message = 'Open';
-                }
+            $this->getStatus($item);
+        }
+        return $dataSource;
+    }
 
-                $item[$this->getData('name')] = $message;
-            }
+    private function getStatus(&$item)
+    {
+        $status = $item['status'];
+
+        if ($status) {
+            $message = 'Closed';
+        } else {
+            $message = 'Open';
         }
 
-        return $dataSource;
+        $item[$this->getData('name')] = $message;
     }
 }

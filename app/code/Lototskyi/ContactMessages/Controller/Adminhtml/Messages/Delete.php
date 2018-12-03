@@ -12,14 +12,17 @@ class Delete extends Action
         $id = $this->getRequest()->getParam('message_id');
 
         if (!($contact = $this->_objectManager->create(Messages::class)->load($id))) {
+
             $this->messageManager->addErrorMessage(__('Unable to proceed. Please, try again.'));
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('*/*/index', array('_current' => true));
         }
-        try{
+        try {
+
             $contact->delete();
-            $this->messageManager->addSuccessMessage(__('Your message has been deleted !'));
+            $this->messageManager->addSuccessMessage(__('Your message has been deleted!'));
         } catch (Exception $e) {
+
             $this->messageManager->addErrorMessage(__('Error while trying to delete contact: '));
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('*/*/index', array('_current' => true));

@@ -2,8 +2,6 @@
 
 namespace Lototskyi\ContactMessages\Model\Config\Source;
 
-
-
 class StatusList implements \Magento\Framework\Option\ArrayInterface
 {
     /**

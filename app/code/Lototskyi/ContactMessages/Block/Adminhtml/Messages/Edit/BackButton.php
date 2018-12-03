@@ -23,7 +23,7 @@ class BackButton extends GenericButton implements ButtonProviderInterface
     }
 
     /**
-     * Get URL for back (reset) button
+     * Get URL for back button
      *
      * @return string
      */

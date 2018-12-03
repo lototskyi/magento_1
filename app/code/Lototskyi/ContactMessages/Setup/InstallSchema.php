@@ -85,7 +85,7 @@ class InstallSchema implements InstallSchemaInterface
                     'answered_at',
                     Table::TYPE_TIMESTAMP,
                     null,
-                    ['nullable' => false, 'default' => Table::TIMESTAMP_INIT_UPDATE],
+                    ['nullable' => false],
                     'Answered At')
                 ->setComment('Contact us table');
             $installer->getConnection()->createTable($table);

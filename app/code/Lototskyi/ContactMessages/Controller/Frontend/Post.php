@@ -48,7 +48,8 @@ class Post extends \Magento\Contact\Controller\Index
         MailInterface $mail,
         DataPersistorInterface $dataPersistor,
         LoggerInterface $logger = null
-    ) {
+    )
+    {
         parent::__construct($context, $contactsConfig);
         $this->context = $context;
         $this->mail = $mail;

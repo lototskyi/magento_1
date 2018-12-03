@@ -15,7 +15,6 @@ class Actions extends Column
 
     protected $urlBuilder;
 
-
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -28,27 +27,42 @@ class Actions extends Column
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
-
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as &$item) {
-                if (isset($item['message_id'])) {
-                    $item[$this->getData('name')] = [
-                        'edit' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                static::URL_PATH_EDIT,
-                                [
-                                    'id' => $item['message_id']
-                                ]
-                            ),
-                            'label' => __('Edit')
-                        ],
-                    ];
-                }
+            $dataSource = $this->getLinks($dataSource);
+        }
+
+        return $dataSource;
+    }
+
+    private function getLinks($dataSource)
+    {
+        foreach ($dataSource['data']['items'] as &$item) {
+            if (isset($item['message_id'])) {
+                $this->getEditLink($item);
             }
         }
 
         return $dataSource;
+    }
+
+    private function getEditLink(&$item)
+    {
+        $item[$this->getData('name')] = [
+            'edit' => [
+                'href' => $this->builEditdUrl($item),
+                'label' => __('Edit')
+            ],
+        ];
+    }
+
+    private function builEditdUrl($item)
+    {
+        return $this->urlBuilder->getUrl(
+            static::URL_PATH_EDIT,
+            [
+                'id' => $item['message_id']
+            ]);
     }
 }

@@ -5,6 +5,8 @@ namespace Lototskyi\ContactMessages\Controller\Adminhtml\Messages;
 use \Magento\Backend\App\Action;
 use Lototskyi\ContactMessages\Model\Messages;
 use Lototskyi\ContactMessages\Helper\Email;
+use Magento\Framework\Exception\MailException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Action Edit
@@ -12,12 +14,21 @@ use Lototskyi\ContactMessages\Helper\Email;
  */
 class Edit extends Action
 {
+    /**
+     * @var Email
+     */
     protected $helperEmail;
 
-    public function __construct(Action\Context $context, Email $email)
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    public function __construct(Action\Context $context, Email $email, LoggerInterface $logger)
     {
-        $this->helperEmail = $email;
         parent::__construct($context);
+        $this->helperEmail = $email;
+        $this->logger = $logger ?: ObjectManager::getInstance()->get(LoggerInterface::class);
     }
 
     public function execute()
@@ -29,24 +40,30 @@ class Edit extends Action
 
         if (is_array($messageData)) {
 
-            if (!($message = $this->_objectManager->create(Messages::class))) {
+            $message = $this->_objectManager->create(Messages::class);
+
+            $resultRedirect = $this->resultRedirectFactory->create();
+
+            if (!$message) {
                 $this->messageManager->addErrorMessage(__('Unable to proceed. Please, try again.'));
-                $resultRedirect = $this->resultRedirectFactory->create();
+
                 return $resultRedirect->setPath('*/*/index', array('_current' => true));
             }
-            try{
+            try {
+                $currentData = $message->load($messageData['message_id'])->getData();
+
+                $messageData['answered_at'] = time();
                 $message->setData($messageData)->save();
 
-                //$name = $messageData['name'];
-                //$email = $messageData['email'];
-
-                //send email
-                //$this->helperEmail->notify($name, $email);
+                $this->sendEmail($currentData, $messageData);
 
                 $this->messageManager->addSuccessMessage(__('The message has been answered!'));
+            } catch (MailException $e) {
+                $this->messageManager->addErrorMessage(__('Email was not send!'));
+                return $resultRedirect->setPath('*/*/index', array('_current' => true));
             } catch (Exception $e) {
+                $this->logger->critical($e);
                 $this->messageManager->addErrorMessage(__('Error while trying to answer message: '));
-                $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/index', array('_current' => true));
             }
 
@@ -56,9 +73,13 @@ class Edit extends Action
 
     }
 
-    private function sendEmail()
+    private function sendEmail($currentData, $messageData)
     {
+        if (trim($currentData['answer']) != trim($messageData['answer'])) {
+            $name = $messageData['name'];
+            $email = $messageData['email'];
 
-
+            $this->helperEmail->notify($name, $email, $messageData['answer']);
+        }
     }
 }

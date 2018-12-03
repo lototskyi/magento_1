@@ -32,7 +32,6 @@ class Email extends AbstractHelper
     private $transportBuilder;
 
     /**
-     * Demo constructor.
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
@@ -114,11 +113,12 @@ class Email extends AbstractHelper
     /**
      * @param $name
      * @param $email
+     * @param $answer
      * @return $this
      * @throws \Magento\Framework\Exception\MailException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function notify($name, $email)
+    public function notify($name, $email, $answer)
     {
 
         /* Receiver Detail */
@@ -127,9 +127,10 @@ class Email extends AbstractHelper
             'email' => $email
         ];
 
-        /* Assign values for your template variables  */
         $variable = [];
-        $variable['message'] = 'some information';
+        $variable['name'] = $name;
+        $variable['email'] = $email;
+        $variable['answer'] = $answer;
 
         $templateId = $this->getConfigValue(self::XML_PATH_EMAIL_TEMPLATE_FIELD, $this->getStore()->getStoreId());
 
