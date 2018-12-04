@@ -1,0 +1,18 @@
+<!--@subject Answer contact message  @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>
+        <td>{{var name|raw}}</td>
+    </tr>
+    <tr>
+        <td>{{var email|raw}}</td>
+    </tr>
+    <tr>
+        <td>{{var answer|raw}}</td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

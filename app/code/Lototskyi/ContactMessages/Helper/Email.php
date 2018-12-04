@@ -87,8 +87,8 @@ class Email extends AbstractHelper
         $this->transportBuilder->setTemplateIdentifier($templateId)
             ->setTemplateOptions(
                 [
-                    'area' => \Magento\Framework\App\Area::AREA_ADMINHTML,
-                    'store' => $this->storeManager->getStore()->getId(),
+                    'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+                    'store' => $this->getStore()->getId(),
                 ]
             )
             ->setTemplateVars($variable)

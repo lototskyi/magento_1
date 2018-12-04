@@ -39,38 +39,29 @@ class Edit extends Action
         $messageData = $this->getRequest()->getParam('messages');
 
         if (is_array($messageData)) {
-
             $message = $this->_objectManager->create(Messages::class);
 
             $resultRedirect = $this->resultRedirectFactory->create();
 
             if (!$message) {
                 $this->messageManager->addErrorMessage(__('Unable to proceed. Please, try again.'));
-
                 return $resultRedirect->setPath('*/*/index', array('_current' => true));
             }
             try {
                 $currentData = $message->load($messageData['message_id'])->getData();
-
                 $messageData['answered_at'] = time();
                 $message->setData($messageData)->save();
-
                 $this->sendEmail($currentData, $messageData);
-
                 $this->messageManager->addSuccessMessage(__('The message has been answered!'));
             } catch (MailException $e) {
-                $this->messageManager->addErrorMessage(__('Email was not send!'));
-                return $resultRedirect->setPath('*/*/index', array('_current' => true));
+                $this->messageManager->addErrorMessage(__('Email was not sent!'));
             } catch (Exception $e) {
                 $this->logger->critical($e);
                 $this->messageManager->addErrorMessage(__('Error while trying to answer message: '));
+            } finally {
                 return $resultRedirect->setPath('*/*/index', array('_current' => true));
             }
-
-            $resultRedirect = $this->resultRedirectFactory->create();
-            return $resultRedirect->setPath('*/*/index', array('_current' => true));
         }
-
     }
 
     private function sendEmail($currentData, $messageData)

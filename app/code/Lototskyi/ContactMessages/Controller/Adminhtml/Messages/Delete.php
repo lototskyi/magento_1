@@ -5,6 +5,10 @@ namespace Lototskyi\ContactMessages\Controller\Adminhtml\Messages;
 use \Magento\Backend\App\Action;
 use Lototskyi\ContactMessages\Model\Messages;
 
+/**
+ * Action Delete
+ * @package Lototskyi\ContactMessages\Controller\Adminhtml\Messages
+ */
 class Delete extends Action
 {
     public function execute()
